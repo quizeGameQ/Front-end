@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <title>Level 1</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <h1>Level 1</h1>
+        </div>
+        <div class="row">
+            <div>|0></div>
+            <canvas id="myCanvas" width="300" height="150">
+                Your browser does not support the HTML5 canvas tag.</canvas>
+        </div>
+    </div>
+</body>
+<script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(300, 0);
+    ctx.stroke(); 
+</script>
+
+</html>

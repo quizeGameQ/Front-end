@@ -1,5 +1,6 @@
 .title{
-    margin-top: 30vh; 
+    margin-top: 30vh;
+    width: 10vw;
 }
 .levelBlock{
     height: 44px;
@@ -9,7 +10,4 @@
     font-size: 3rem;
     vertical-align: middle;
     border-radius: 8px;
-}
-.container-fluid{
-    width: 10vw;
 }

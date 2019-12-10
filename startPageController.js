@@ -10,17 +10,18 @@ function startPageController($scope, $compile) {
     $scope.showLevels = function () {
         var levels = "<div class='col-md-6 text-center'"
             + " ng-repeat='level in levels.levels'>"
-            + "<p class='levelBlock'>{{level}}</p>"
+            + "<p class='levelBlock' ng-click='goToLevel(level);'>{{level}}</p>"
             + "</div>";
         $('#subTitle').html(
             $compile(levels)($scope)
         );
-        $('.levelBlock').click(function () {
-            console.log('levelBlock clicked');
-        });
     }
 
-    $scope.goToLevel = function (source) {
-        console.log(source)
+    $scope.goToLevel = function (level) {
+        console.log('loading level ' + level);
+        $.get('levels/level' + level + '.html', 
+        function(data){
+            $('#view').html(data);
+        });
     }
 }
