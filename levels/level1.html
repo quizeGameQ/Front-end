@@ -10,37 +10,55 @@
             <h1>Level 1</h1>
         </div>
         <div class="row">
-            <svg height="200" width="2100">
+            <svg height="200" width="1000" style="border:1px solid black">
                 <defs>
-                    <text id="0_state" x=0 y=6>|0></text>
-                    <text id="1_state" x=0 y=6>|1></text>
-                    <g id="wire">
-                        <line id="" x2="150" y2="1" style="stroke:black;stroke-width:2" />
+                    <text id="0state" x='0' y='0'>|0></text>
+                    <text id="1state" x='0' y='0'>|1></text>
+                    <line id="900WWire" x1='0' y1='0' x2="900" y2="0" style="stroke:black;stroke-width:2" />
+                    <rect id="50WGate" width='50' height='50' x='0' y="0"
+                        style="fill:white; stroke:black;stroke-width:2"></rect>
+                    <g id="50WChoice">
+                        <rect width='50' height='50' x='0' y='0' style="fill:white; stroke:black;stroke-width:2"></rect>
+                        <text x='19' y='30' style="color: black;">X</text>
                     </g>
-                    <rect id="gate" width='50' height='50'></rect>
-                </defs>
-                <use xlink:href="#0_state" x=0, y=10 />
-                <use xlink:href="#wire" x=10, y=10 />
-                <!-- <use xlink:href="#gate" x=160, y=10 />
-                <use xlink:href="#1_state" x=200, y=10 /> -->
-            </svg>
 
-            <div class="choice" style='width: 10px'>
-                <p>X</p>
-            </div>
+                </defs>
+                <use xlink:href="#0state" x='10' y='50' />
+                <use xlink:href="#900WWire" x='40' y='45' />
+                <use xlink:href="#50WGate" x='490' y='20' />
+                <use xlink:href="#1state" x='950' , y='50' />
+
+                <!-- <use xlink:href="#50WChoice" x='490' y='100' /> -->
+            </svg>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script>
-        $(function () {
-            $(".choice").draggable();
-            $('.gate').droppable({
-                drop: function (event, ui) {
-                    console.log('dropped');
-                }
+        var svg = d3.select("svg");
+        svg.append("use")
+            .attr("href", "#50WChoice")
+            .attr("x", function () {
+                console.log('setting default X position for the choice box');
+                return 490;
+            })
+            .attr("y", 100)
+            .attr("id", "choice1")
+
+        var dragHandler = d3.drag()
+            .on("start", function () {
+                var current = d3.select(this);
+                deltaX = current.attr("x") - d3.event.x;
+                deltaY = current.attr("y") - d3.event.y;
+            })
+            .on("drag", function () {
+                d3.select(this)
+                    .attr("x", d3.event.x + deltaX)
+                    .attr("y", d3.event.y + deltaY);
             });
-        })
+
+        dragHandler(svg.select("#choice1"));
     </script>
 </body>
 
