@@ -37,25 +37,24 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script>
         var svg = d3.select("svg");
+        svg.data([{
+            x: 490,
+            y: 100
+        }])
+            .enter();
         svg.append("use")
             .attr("href", "#50WChoice")
-            .attr("x", function () {
-                console.log('setting default X position for the choice box');
-                return 490;
-            })
-            .attr("y", 100)
+            .attr("x", function (d) { return (d.x) })
+            .attr("y", function (d) { return (d.y) })
             .attr("id", "choice1")
 
+        console.log(svg.selectAll("use"));
+
         var dragHandler = d3.drag()
-            .on("start", function () {
-                var current = d3.select(this);
-                deltaX = current.attr("x") - d3.event.x;
-                deltaY = current.attr("y") - d3.event.y;
-            })
-            .on("drag", function () {
+            .on("drag", function (d) {
                 d3.select(this)
-                    .attr("x", d3.event.x + deltaX)
-                    .attr("y", d3.event.y + deltaY);
+                    .attr("x", d.x = d3.event.x)
+                    .attr("y", d.y = d3.event.y);
             });
 
         dragHandler(svg.select("#choice1"));
