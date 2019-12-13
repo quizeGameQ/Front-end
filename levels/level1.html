@@ -1,63 +1,92 @@
-<html>
+<html ng-app="level">
 
 <head>
-    <title>Level 1</title>
+    <meta>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="levelController.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="levelStyles.css">
+
+    </meta>
 </head>
 
-<body>
+<body ng-controller="levelController">
     <div class="container-fluid">
         <div class="row">
             <h1>Level 1</h1>
         </div>
         <div class="row">
-            <svg height="200" width="1000" style="border:1px solid black">
+            <div class="col-xs-12"></div>
+            <svg height="200" width="1000" style="border:1px solid black" class="col-xs-12 text-center">
                 <defs>
                     <text id="0state" x='0' y='0'>|0></text>
                     <text id="1state" x='0' y='0'>|1></text>
                     <line id="900WWire" x1='0' y1='0' x2="900" y2="0" style="stroke:black;stroke-width:2" />
-                    <rect id="50WGate" width='50' height='50' x='0' y="0"
-                        style="fill:white; stroke:black;stroke-width:2"></rect>
-                    <g id="50WChoice">
+                    <g id="50WGate">
                         <rect width='50' height='50' x='0' y='0' style="fill:white; stroke:black;stroke-width:2"></rect>
-                        <text x='19' y='30' style="color: black;">X</text>
+                        <text x='19' y='30' style="color: black;">{{gates[0]}}</text>
                     </g>
-
                 </defs>
+
                 <use xlink:href="#0state" x='10' y='50' />
                 <use xlink:href="#900WWire" x='40' y='45' />
-                <use xlink:href="#50WGate" x='490' y='20' />
+                <use xlink:href="#50WGate" x='490' y='20' ng-click='selectGate(0)' />
                 <use xlink:href="#1state" x='950' , y='50' />
-
-                <!-- <use xlink:href="#50WChoice" x='490' y='100' /> -->
             </svg>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3 ng-click="updateGates('X')">X</h3>
+        </div>
+        <div class="col-sm-4">
+            <h3 ng-click="updateGates('H')">H</h3>
+        </div>
+        <div class="col-sm-4">
+            <h3 ng-click="updateGates('Z')">Z</h3>
+        </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script>
-        var svg = d3.select("svg");
-        svg.data([{
-            x: 490,
-            y: 100
-        }])
-            .enter();
-        svg.append("use")
-            .attr("href", "#50WChoice")
-            .attr("x", function (d) { return (d.x) })
-            .attr("y", function (d) { return (d.y) })
-            .attr("id", "choice1")
+        // var svg = d3.select("svg");
+        // svg.data([{
+        //     x: 490,
+        //     y: 100
+        // }])
+        //     .enter();
+        // svg.append("use")
+        //     .attr("href", "#50WChoice")
+        //     .attr("x", function (d) { return (d.x) })
+        //     .attr("y", function (d) { return (d.y) })
+        //     .attr("id", "choice1")
 
-        console.log(svg.selectAll("use"));
+        // console.log(svg.selectAll("use"));
 
-        var dragHandler = d3.drag()
-            .on("drag", function (d) {
-                d3.select(this)
-                    .attr("x", d.x = d3.event.x)
-                    .attr("y", d.y = d3.event.y);
-            });
+        // var dragHandler = d3.drag()
+        //     .on("drag", function (d) {
+        //         d3.select(this)
+        //             .attr("x", d.x = d3.event.x)
+        //             .attr("y", d.y = d3.event.y);
+        //     });
 
-        dragHandler(svg.select("#choice1"));
+        // dragHandler(svg.select("#choice1"));
     </script>
 </body>
 
